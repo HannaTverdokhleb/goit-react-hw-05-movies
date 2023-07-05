@@ -26,7 +26,7 @@ export const App = () => {
 
   return (
     <div className="container">
-      <nav>
+      <nav className="headerNav">
         <StyledLink to="/" end>Home</StyledLink>
         <StyledLink to="/movies">Movies</StyledLink>
       </nav>

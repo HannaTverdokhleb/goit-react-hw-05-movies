@@ -1,6 +1,7 @@
 import { Outlet, Link, useLocation, useParams } from "react-router-dom";
 import { getMovieInfo } from "api/moviesApi";
 import { useState, useEffect, useRef } from "react";
+import style from 'pages/MovieDetails/MovieDetails.module.css'
 
 
 const MovieDetails = () => {
@@ -29,10 +30,10 @@ const MovieDetails = () => {
     
     return (
         <>
-            <Link to={backLinkLocationRef.current}>Back</Link>
-            <div className="movie-details">
+            <Link className={style.backLink} to={backLinkLocationRef.current}>Back</Link>
+            <div className={style.movieDetails}>
                 <img src={(poster_path || backdrop_path) ? 'https://image.tmdb.org/t/p/w300' + (poster_path ?? backdrop_path) : '#'} alt={original_title} width="300" />
-                <div>
+                <div className={style.detailsText}>
                     <h2>{original_title}</h2>
                     <p>User score: {vote_count}%</p>
                     <h3>Overview</h3>
@@ -48,8 +49,8 @@ const MovieDetails = () => {
             <div>
                 <h4>Additional information</h4>
                 <nav>
-                    <Link to="cast">Cast</Link>
-                    <Link to="reviews">Reviews</Link>
+                    <Link className={style.link} to="cast">Cast</Link>
+                    <Link className={style.link} to="reviews">Reviews</Link>
                 </nav>
             </div>
 

@@ -1,0 +1,33 @@
+.link,
+.backLink {
+    text-decoration: none;
+    color: #000;
+}
+.link:last-child {
+    margin-left: 20px;
+}
+.link:hover {
+    text-decoration: underline;
+}
+
+.backLink {
+    padding: 10px;
+    font-weight: 700;
+    border-radius: 5px;
+    background: antiquewhite;
+    max-width: 100px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 10px 0;
+    transition: all linear 0.2s;
+}
+.backLink:hover {
+    color: orange;
+}
+.movieDetails {
+    display: flex;
+}
+.detailsText {
+    padding-left: 20px;
+}
