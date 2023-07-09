@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getActors } from 'api/moviesApi';
+import placeholder from 'empty.png';
 
 
 const Cast = () => {
@@ -32,7 +33,7 @@ const Cast = () => {
                     {actors.cast.map(({id, profile_path, name, character}) => {
                         return (
                             <li key={id}>
-                                <img src={profile_path ? 'https://image.tmdb.org/t/p/w200' + profile_path : '#'} alt={name} width="200" />
+                                <img src={profile_path ? `https://image.tmdb.org/t/p/w200${profile_path}` : placeholder} alt={name} width="200" height="300" />
                                 <p>{name}</p>
                                 <p>{character}</p>
                             </li>

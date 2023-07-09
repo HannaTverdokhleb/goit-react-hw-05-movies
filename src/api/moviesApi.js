@@ -1,7 +1,6 @@
 import axios from "axios";
 
 
-axios.defaults.method = 'GET';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 axios.defaults.headers = {
   accept: 'application/json',
@@ -48,7 +47,7 @@ export const getMovie = async (term) => {
 
 export const getMovieInfo = async (movieId) => {
   if (movieId) {
-    const { data } = await axios.get('/movie/' + movieId);
+    const { data } = await axios.get(`/movie/${movieId}`);
     return data
   }
 }
@@ -56,7 +55,7 @@ export const getMovieInfo = async (movieId) => {
 
 export const getActors = async (movieId) => {
   if (movieId) {
-    const {data} = await axios.get('/movie/'+ movieId +'/credits')
+    const {data} = await axios.get(`/movie/${movieId}/credits`)
     return data
   }  
 }
@@ -64,7 +63,7 @@ export const getActors = async (movieId) => {
 
 export const getReviews = async (movieId) => {
   if (movieId) {
-    const {data} = await axios.get('/movie/'+ movieId +'/reviews', {
+    const {data} = await axios.get(`/movie/${movieId}/reviews`, {
       transformResponse: (data) => {
         let res = JSON.parse(data);
         return res.results.map(({id, author, content}) => ({

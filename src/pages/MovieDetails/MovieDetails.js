@@ -1,13 +1,15 @@
-import { Outlet, Link, useLocation, useParams } from "react-router-dom";
+import { Outlet, Link, useLocation, useParams, useNavigate } from "react-router-dom";
 import { getMovieInfo } from "api/moviesApi";
 import { useState, useEffect, useRef } from "react";
-import style from 'pages/MovieDetails/MovieDetails.module.css'
+import style from 'pages/MovieDetails/MovieDetails.module.css';
+import placeholder from 'empty.png';
 
 
 const MovieDetails = () => {
     const [movieInfo, setMovieInfo] = useState({});
     const { movieId } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
     const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
     useEffect(() => {
@@ -17,22 +19,26 @@ const MovieDetails = () => {
                 info = await getMovieInfo(movieId);
             }
             catch(err) {
-                alert(err.message);
+                if (err.message && err.message === 'Request failed with status code 404') {
+                    navigate('/');
+                } else {
+                    alert(err.message);
+                }
             }
             finally {
                 setMovieInfo(info);
             }
         }
         asd();
-    }, [movieId]);
+    }, [movieId, navigate]);
 
-    const {poster_path, backdrop_path, original_title, vote_count, overview, genres} = movieInfo;
+    const {poster_path, original_title, vote_count, overview, genres} = movieInfo;
     
     return (
         <>
             <Link className={style.backLink} to={backLinkLocationRef.current}>Back</Link>
             <div className={style.movieDetails}>
-                <img src={(poster_path || backdrop_path) ? 'https://image.tmdb.org/t/p/w300' + (poster_path ?? backdrop_path) : '#'} alt={original_title} width="300" />
+                <img src={poster_path ? `https://image.tmdb.org/t/p/w300${poster_path}` : placeholder} alt={original_title} width="300" height="450" />
                 <div className={style.detailsText}>
                     <h2>{original_title}</h2>
                     <p>User score: {vote_count}%</p>
